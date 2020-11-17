@@ -16,20 +16,21 @@
       Gender:     <input type="radio" name="gender" value="m">Male
                   <input type="radio" name="gender" value="f">Female<br><br>
       Zip Code:   <input type="text" id="zip" name="zip">
-                  <span id"zipError"></span><br>
+                  <span id="zipError"></span><br>
+                  
       City:       <span id="city"></span><br>
       Latitude:   <span id="latitude"></span><br> 
       Longitude: <span id="longitude"></span><br>
 
       State:
-      <select id="state" name="state">
+      <select class="state" id="state" name="state">
          <option> Select One </option>  
          <option value="ca"> California </option>
          <option value="ny"> New York   </option>
          <option value="tx"> Texas      </option>
       </select><br>
 
-      Select a County: <select id="county"></select><br>
+      Select a County: <select class="county" id="county"></select><br>
 
       Desired Username: <input type="text" id="username" name="username"><br>
                         <span id="usernameError"></span><br>
@@ -43,6 +44,7 @@
    <script>
       
       var usernameAvailable = false;
+      var zipCodeAvailable = true;
 
       //Displaying City from API after typing a zipcode.
       $("#zip").on("change",async function(){
@@ -56,9 +58,10 @@
          $("#latitude").html(data.latitude);
          $("#longitude").html(data.longitude);
       
-         if (data === false){
+         if (data == false){
             $("#zipError").html("Zip code not valid!");
             $("#zipError").css("color","red");
+            zipCodeAvailable = false;
          }
        
       }); //zip
@@ -121,6 +124,10 @@
          if (!usernameAvailable) {
             isValid = false;
          }
+         
+         if (!zipCodeAvailable) {
+            isValid = false;
+         }
 
          if ($("#username").val().length == 0) {
             isValid = false;
@@ -130,13 +137,14 @@
 
          if ($("#password").val() != $("#passwordAgain").val()){
             $("#passwordAgainError").html("Password Mismatch!");
+            $("#passwordAgainError").css("color","red");
             isValid = false;
          }
 
-         if ($("#password").val().length != 6) {
-            isValid = false;
+         if ($("#password").val().length < 6) {
             $("#passwordAgainError").html("6 characters minimum");
             $("#passwordAgainError").css("color","red");
+            isValid = false;
          }
             
          return isValid;

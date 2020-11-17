@@ -9,11 +9,35 @@ h1 {
 }
 
 #signupForm {
-    text-align: center;
-    justify-content: center;
+    text-align: left;
+    margin-left: 40em;
     
 }
 
 #welcome {
     color: Blue;
+}
+
+input[type=text]{
+    color: green;
+    background-color: black;
+    font-weight: bold;
+}
+
+input[type=password]{
+    color: green;
+    background-color: black;
+    font-weight: bold;
+}
+
+.state {
+    color: green;
+    background-color: black;
+    font-weight: bold;
+}
+
+.county {
+    color: green;
+    background-color: black;
+    font-weight: bold;
 }
