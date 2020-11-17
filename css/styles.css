@@ -1,5 +1,11 @@
 body{
-    text-align: center;
     color: green;
     background-color: black;
+    text-align: center;
+    justify-content: center;
+    
+}
+
+h1 {
+    font-size: 85px;   
 }
