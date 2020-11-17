@@ -1,11 +1,19 @@
 body{
+    text-align: center;
     color: green;
     background-color: black;
+}
+
+h1 {
+    font-size: 85px;   
+}
+
+#signupForm {
     text-align: center;
     justify-content: center;
     
 }
 
-h1 {
-    font-size: 85px;   
+#welcome {
+    color: Blue;
 }

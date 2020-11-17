@@ -16,6 +16,7 @@
       Gender:     <input type="radio" name="gender" value="m">Male
                   <input type="radio" name="gender" value="f">Female<br><br>
       Zip Code:   <input type="text" id="zip" name="zip"><br>
+                  <span id"zipError"></span><br>
       City:       <span id="city"></span><br>
       Latitude:   <span id="latitude"></span><br> 
       Longitude: <span id="longitude"></span><br>
@@ -47,15 +48,31 @@
       $("#zip").on("change",async function(){
          //alert($("#zip").val());
          let zipCode = $("#zip").val();
-         let url = `https://cst336.herokuapp.com/projects/api/state_abbrAPI.php?zip=${zipCode}`;
+         let url = `https://itcdland.csumb.edu/~milara/ajax/cityInfoByZip?zip=${zipCode}`;
          let response = await fetch(url);
          let data = await response.json();
          //console.log(data);
-         $("#city").html(data.city);
-         $("#latitude").html(data.latitude);
-         $("#longitude").html(data.longitude);
+         if (data.zip != 5) {
+            $("#city").html(data.city);
+            $("#latitude").html(data.latitude);
+            $("#longitude").html(data.longitude);
+         } else {
+            $("#zipError").html("Invalid ZipCode!");   
+            $("#zipError").css("color","red"); 
+         }
       }); //zip
 
+      $(document).ready(async function() {
+         let url = `https://cst336.herokuapp.com/projects/api/state_abbrAPI.php`;
+         let response = await fetch(url);
+         let data = await response.json();
+         
+         $("#state").html("<option>Select One </option");
+         data.forEach(function(i) {
+            $("#state").append(`<option value=${i.usps}> ${i.state} </option>`);
+         });
+      });
+      
       $("#state").on("change", async function(){
          //alert($("#state").val());
          let state = $("#state").val();
@@ -82,7 +99,7 @@
 
          if (data.available) {
             $("#usernameError").html("Username available!");            
-            $("#usernameError").css("color","green");           
+            $("#usernameError").css("color","violet");           
             usernameAvailable = true;
          } else {
             $("#usernameError").html("Username not available!");   
@@ -107,6 +124,7 @@
          if ($("#username").val().length == 0) {
             isValid = false;
             $("#usernameError").html("Username is required");
+            $("#usernameError").css("color","red");
          }
 
          if ($("#password").val() != $("#passwordAgain").val()){
@@ -117,6 +135,7 @@
          if ($("#password").val().length != 6) {
             isValid = false;
             $("#passwordAgainError").html("6 characters minimum");
+            $("#passwordAgainError").css("color","red");
          }
          return isValid;
       }
