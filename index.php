@@ -15,7 +15,7 @@
       Last Name:  <input type="text" name="lName"><br>
       Gender:     <input type="radio" name="gender" value="m">Male
                   <input type="radio" name="gender" value="f">Female<br><br>
-      Zip Code:   <input type="text" id="zip" name="zip"><br>
+      Zip Code:   <input type="text" id="zip" name="zip">
                   <span id"zipError"></span><br>
       City:       <span id="city"></span><br>
       Latitude:   <span id="latitude"></span><br> 
@@ -52,14 +52,15 @@
          let response = await fetch(url);
          let data = await response.json();
          //console.log(data);
-         if (data.zip != 5) {
-            $("#city").html(data.city);
-            $("#latitude").html(data.latitude);
-            $("#longitude").html(data.longitude);
-         } else {
-            $("#zipError").html("Invalid ZipCode!");   
-            $("#zipError").css("color","red"); 
+         $("#city").html(data.city);
+         $("#latitude").html(data.latitude);
+         $("#longitude").html(data.longitude);
+      
+         if (data === false){
+            $("#zipError").html("Zip code not valid!");
+            $("#zipError").css("color","red");
          }
+       
       }); //zip
 
       $(document).ready(async function() {
@@ -137,6 +138,7 @@
             $("#passwordAgainError").html("6 characters minimum");
             $("#passwordAgainError").css("color","red");
          }
+            
          return isValid;
       }
 
